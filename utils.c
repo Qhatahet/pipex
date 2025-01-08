@@ -6,7 +6,7 @@
 /*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:37:08 by qais              #+#    #+#             */
-/*   Updated: 2025/01/08 14:01:01 by qais             ###   ########.fr       */
+/*   Updated: 2025/01/08 14:30:28 by qais             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	get_cmd(char **cmd, t_helpers *helper, char **envp)
 			if (!helper->paths)
 				return (0);
 			return (1);
-		}	
+		}
 		helper->i++;
 	}
 	return (0);

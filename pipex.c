@@ -6,22 +6,11 @@
 /*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 00:27:45 by qhatahet          #+#    #+#             */
-/*   Updated: 2025/01/08 14:07:19 by qais             ###   ########.fr       */
+/*   Updated: 2025/01/08 14:28:11 by qais             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-
-static void	exit_pipe(t_data *data)
-{
-	if (data->fd[0] > 0)
-		close(data->fd[0]);
-	if (data->fd[1] > 0)
-		close(data->fd[1]);
-	perror("ya nashmi! reconsider your life choices (╯°□°）╯︵ ┻━┻.\n");
-	exit(EXIT_FAILURE);
-}
 
 void	read_from_pipe(char **argv, char **envp, t_data *data)
 {
