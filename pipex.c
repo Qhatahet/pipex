@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qhatahet <qhatahet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 00:27:45 by qhatahet          #+#    #+#             */
-/*   Updated: 2025/01/08 14:28:11 by qais             ###   ########.fr       */
+/*   Updated: 2025/01/08 22:12:14 by qhatahet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	read_from_pipe(char **argv, char **envp, t_data *data)
 	if (errno)
 		ft_exit(data->fd[0]);
 	ft_execute(fd, argv[3], envp);
+	errno = EINVAL;
 	ft_exit(-1);
 }
 
@@ -53,6 +54,7 @@ void	write_into_pipe(char **argv, char **envp, t_data *data)
 	if (errno)
 		ft_exit(-1);
 	ft_execute(fd, argv[2], envp);
+	errno = EINVAL;
 	ft_exit(-1);
 }
 

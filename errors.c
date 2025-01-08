@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qhatahet <qhatahet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:43:08 by qais              #+#    #+#             */
-/*   Updated: 2025/01/08 14:30:37 by qais             ###   ########.fr       */
+/*   Updated: 2025/01/08 22:08:44 by qhatahet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_exit(int fd)
 {
-	perror("\033[0;31mERROR\033[0m");
+	if (errno != 0)
+		perror("\033[0;31mERROR\033[0m");
 	if (fd > 0)
 		close (fd);
 	exit(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: qhatahet <qhatahet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:37:08 by qais              #+#    #+#             */
-/*   Updated: 2025/01/08 19:59:37 by qhatahet         ###   ########.fr       */
+/*   Updated: 2025/01/08 22:11:40 by qhatahet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void	ft_execute(int fd, char *cmd, char **envp)
 	}
 	cmd = get_path (vector[0], envp);
 	execve(cmd, vector, envp);
+	ft_free_2d(vector);
 }
