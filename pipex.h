@@ -6,7 +6,7 @@
 /*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 00:29:41 by qhatahet          #+#    #+#             */
-/*   Updated: 2025/01/07 15:39:44 by qais             ###   ########.fr       */
+/*   Updated: 2025/01/08 14:04:10 by qais             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ typedef struct s_helpers
 	int		i;
 }		t_helpers;
 
-char	*get_path(char *cmd, char **envp, t_helpers helper);
+char	*get_path(char *cmd, char **envp);
 void	ft_execute(int fd, char *cmd, char **envp);
 void	ft_exit(int fd);
+void	ft_free_2d(char **s);
 int		get_cmd(char **cmd, t_helpers *helper, char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:37:08 by qais              #+#    #+#             */
-/*   Updated: 2025/01/07 15:51:36 by qais             ###   ########.fr       */
+/*   Updated: 2025/01/08 14:01:01 by qais             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ int	get_cmd(char **cmd, t_helpers *helper, char **envp)
 			if (!helper->paths)
 				return (0);
 			return (1);
-		}
+		}	
 		helper->i++;
 	}
 	return (0);
 }
 
-char	*get_path(char *cmd, char **envp, t_helpers helper)
+char	*get_path(char *cmd, char **envp)
 {
+	t_helpers	helper;
+
 	helper.paths = NULL;
 	helper.joined = NULL;
 	if (!get_cmd(&cmd, &helper, envp))
@@ -54,17 +56,24 @@ char	*get_path(char *cmd, char **envp, t_helpers helper)
 		helper.i++;
 	}
 	free(cmd);
+	ft_free_2d(helper.paths);
 	return (helper.joined);
 }
 
 void	ft_execute(int fd, char *cmd, char **envp)
 {
 	char		**vector;
-	t_helpers	helper;
 
 	vector = ft_split(cmd, ' ');
 	if (!vector)
 		ft_exit(fd);
-	cmd = get_path (vector[0], envp, helper);
+	if (cmd[0] == '/')
+	{
+		if (!access(cmd, X_OK))
+			execve(cmd, vector, envp);
+		ft_free_2d(vector);
+		return ;
+	}
+	cmd = get_path (vector[0], envp);
 	execve(cmd, vector, envp);
 }
