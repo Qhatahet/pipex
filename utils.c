@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qhatahet <qhatahet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:37:08 by qais              #+#    #+#             */
-/*   Updated: 2025/01/08 14:30:28 by qais             ###   ########.fr       */
+/*   Updated: 2025/01/08 19:59:37 by qhatahet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void	ft_execute(int fd, char *cmd, char **envp)
 	vector = ft_split(cmd, ' ');
 	if (!vector)
 		ft_exit(fd);
+	if (*cmd == 0 || *cmd == ' ')
+	{
+		ft_free_2d(vector);
+		ft_exit(fd);
+	}
 	if (cmd[0] == '/')
 	{
 		if (!access(cmd, X_OK))
