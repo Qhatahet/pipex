@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhatahet <qhatahet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 00:27:45 by qhatahet          #+#    #+#             */
-/*   Updated: 2025/01/08 22:12:14 by qhatahet         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:07:40 by qais             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 void	read_from_pipe(char **argv, char **envp, t_data *data)
+//child process to redirect the pipe read end to stdin
+//redirect the output to the second file (argv[4])
+//and execute the second cmd (argv[3])
 {
 	int	fd;
 
@@ -31,11 +34,13 @@ void	read_from_pipe(char **argv, char **envp, t_data *data)
 	if (errno)
 		ft_exit(data->fd[0]);
 	ft_execute(fd, argv[3], envp);
-	errno = EINVAL;
 	ft_exit(-1);
 }
 
 void	write_into_pipe(char **argv, char **envp, t_data *data)
+//child process to redirect the content of the first file (argv[1]) into stdin
+//redirect the output to the pipe write end 
+//and execute the first cmd (argv[2])
 {
 	int	fd;
 
@@ -54,7 +59,6 @@ void	write_into_pipe(char **argv, char **envp, t_data *data)
 	if (errno)
 		ft_exit(-1);
 	ft_execute(fd, argv[2], envp);
-	errno = EINVAL;
 	ft_exit(-1);
 }
 
@@ -63,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	if (argc != 5)
-		ft_exit(-1);
+		ft_invalid_args(argc);
 	if (pipe(data.fd) == -1)
 		ft_exit(-1);
 	data.id1 = fork();

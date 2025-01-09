@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhatahet <qhatahet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:37:08 by qais              #+#    #+#             */
-/*   Updated: 2025/01/08 22:11:40 by qhatahet         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:28:51 by qais             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	get_cmd(char **cmd, t_helpers *helper, char **envp)
+int	get_paths(char **cmd, t_helpers *helper, char **envp)
+
+//search in the envp for the paths using strncmp 
+//then split the paths 
 {
 	*cmd = ft_strjoin("/", *cmd);
 	if (!cmd)
@@ -25,7 +28,7 @@ int	get_cmd(char **cmd, t_helpers *helper, char **envp)
 		{
 			helper->paths = ft_split(envp[helper->i] + 5, ':');
 			if (!helper->paths)
-				return (0);
+				ft_exit(-1);
 			return (1);
 		}
 		helper->i++;
@@ -34,12 +37,15 @@ int	get_cmd(char **cmd, t_helpers *helper, char **envp)
 }
 
 char	*get_path(char *cmd, char **envp)
+//get path calls the get_paths function then checks every path if its executable
+//or not using access then it returns the executable path with the cmd
+//ex: usr/bin/ls
 {
 	t_helpers	helper;
 
 	helper.paths = NULL;
 	helper.joined = NULL;
-	if (!get_cmd(&cmd, &helper, envp))
+	if (!get_paths(&cmd, &helper, envp))
 		return (NULL);
 	helper.i = 0;
 	while (helper.paths[helper.i])
@@ -61,6 +67,8 @@ char	*get_path(char *cmd, char **envp)
 }
 
 void	ft_execute(int fd, char *cmd, char **envp)
+//execute the cmd if it was provided with path 
+//if not search for the path using function get_path
 {
 	char		**vector;
 
@@ -70,6 +78,7 @@ void	ft_execute(int fd, char *cmd, char **envp)
 	if (*cmd == 0 || *cmd == ' ')
 	{
 		ft_free_2d(vector);
+		errno = EINVAL;
 		ft_exit(fd);
 	}
 	if (cmd[0] == '/')

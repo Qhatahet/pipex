@@ -6,7 +6,7 @@
 /*   By: qais <qais@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 00:29:41 by qhatahet          #+#    #+#             */
-/*   Updated: 2025/01/08 14:29:34 by qais             ###   ########.fr       */
+/*   Updated: 2025/01/09 17:11:03 by qais             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char	*get_path(char *cmd, char **envp);
 void	ft_execute(int fd, char *cmd, char **envp);
 void	ft_exit(int fd);
 void	ft_free_2d(char **s);
+void	ft_invalid_args(int argc);
 void	exit_pipe(t_data *data);
-int		get_cmd(char **cmd, t_helpers *helper, char **envp);
+int		get_paths(char **cmd, t_helpers *helper, char **envp);
 
 #endif
